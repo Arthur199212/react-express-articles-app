@@ -11,7 +11,7 @@ router.delete('/:articleId', async (req, res) => {
     res.json(removedArticle)
   } catch(err) {
     if (err.name === 'CastError') {
-      res.json({
+      res.status(404).json({
         errors: [{
           field: 'id',
           error: 'Not Found'

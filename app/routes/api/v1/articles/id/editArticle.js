@@ -35,7 +35,7 @@ router.put('/:articleId', async (req, res) => {
     res.json(article)
   } catch(err) {
     if (err.name === 'CastError') {
-      res.json({
+      res.status(404).json({
         errors: [{
           field: 'id',
           error: 'Not Found'
