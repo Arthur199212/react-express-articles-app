@@ -1,33 +1,24 @@
 const express = require('express')
-
-const Post = require('../models/post')
+const Article = require('../../../../models/article')
 
 const router = express.Router()
-
-router.get('/', async (req, res) => {
-  try {
-    const posts = await Post.find()
-    res.json(posts)    
-  } catch(err) {
-    res.json({
-      message: err
-    })
-  }
-})
 
 router.post('/', async (req, res) => {
   const { title, body } = req.body
 
-  const post = new Post({
+  // TODO Validation
+
+  const article = new Article({
     title,
     body
   })
 
   try {
-    const savedPost = await post.save()
+    const savedPost = await article.save()
     res.json(savedPost)
   } catch(err) {
     res.json({
+      // TODO send if problem with `title` or `body`
       message: err
     })
   }

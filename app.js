@@ -3,11 +3,11 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 
-const { homeRoute, postsRoute } = require('./src/routes')
+const v1 = require('./src/routes/api')
 
 const app = express()
 
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 8080
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
@@ -26,7 +26,6 @@ mongoose.connect(MONGO_URI, {
 app.use('/public', express.static('static'))
 
 // Routes
-app.use('/', homeRoute)
-app.use('/posts', postsRoute)
+app.use('/v1', v1)
 
 app.listen(port, () => console.log('\x1b[1m%s\x1b[0m', `Listening on http://localhost:${port}/`))

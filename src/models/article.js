@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const PostSchema = mongoose.Schema({
+const ArticleSchema = mongoose.Schema({
   title: {
     type: String,
     required: true
@@ -17,4 +17,4 @@ const PostSchema = mongoose.Schema({
   versionKey: false
 })
 
-module.exports = mongoose.model('Post', PostSchema)
+module.exports = mongoose.model('Article', ArticleSchema)
