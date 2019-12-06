@@ -25,7 +25,6 @@ router.get('/', async (req, res) => {
 
     res.json(data)
   } catch(err) {
-    // TODO send if problem with `page` or `limit`
     res.json({
       message: err
     })

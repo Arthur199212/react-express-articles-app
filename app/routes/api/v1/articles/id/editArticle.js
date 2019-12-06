@@ -7,7 +7,22 @@ router.put('/:articleId', async (req, res) => {
   const { articleId } = req.params
   const { title, body } = req.body
 
-  // TODO Validation
+  // Basic validation
+  if (!title) {
+    res.json({
+      errors: [{
+        field: 'title',
+        error: 'title is required'
+      }]
+    })
+  } else if (!body) {
+    res.json({
+      errors: [{
+        field: 'body',
+        error: 'body is required'
+      }]
+    })
+  }
 
   try {
     const article = await Article.updateOne({ _id: articleId }, {
@@ -19,10 +34,18 @@ router.put('/:articleId', async (req, res) => {
 
     res.json(article)
   } catch(err) {
-    // TODO send if problem with `title` or `body`
-    res.json({
-      message: err
-    })
+    if (err.name === 'CastError') {
+      res.json({
+        errors: [{
+          field: 'id',
+          error: 'Not Found'
+        }]
+      })
+    } else {
+      res.json({
+        message: err
+      })
+    }
   }
 })
 

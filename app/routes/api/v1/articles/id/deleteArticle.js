@@ -10,9 +10,18 @@ router.delete('/:articleId', async (req, res) => {
     const removedArticle = await Article.deleteOne({ _id: articleId })
     res.json(removedArticle)
   } catch(err) {
-    res.json({
-      message: err
-    })
+    if (err.name === 'CastError') {
+      res.json({
+        errors: [{
+          field: 'id',
+          error: 'Not Found'
+        }]
+      })
+    } else {
+      res.json({
+        message: err
+      })
+    }
   }
 })
 

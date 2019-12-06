@@ -6,8 +6,6 @@ const router = express.Router()
 router.post('/', async (req, res) => {
   const { title, body } = req.body
 
-  // TODO Validation
-
   const article = new Article({
     title,
     body
@@ -17,10 +15,18 @@ router.post('/', async (req, res) => {
     const savedPost = await article.save()
     res.json(savedPost)
   } catch(err) {
-    res.json({
-      // TODO send if problem with `title` or `body`
-      message: err
-    })
+    if (err.name === 'ValidationError') {
+      res.json({
+        errors: [{
+          field: err.errors.body.path,
+          error: `${err.errors.body.path} is required`
+        }]
+      })
+    } else {
+      res.json({
+        message: err
+      })
+    }
   }
 })
 

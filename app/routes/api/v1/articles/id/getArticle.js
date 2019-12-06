@@ -10,9 +10,18 @@ router.get('/:articleId', async (req, res) => {
     const article = await Article.findById(articleId)
     res.json(article)
   } catch(err) {
-    res.json({
-      message: err
-    })
+    if (err.name === 'CastError') {
+      res.json({
+        errors: [{
+          field: 'id',
+          error: 'Not Found'
+        }]
+      })
+    } else {
+      res.json({
+        message: err
+      })
+    }
   }
 })
 
