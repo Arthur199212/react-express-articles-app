@@ -11,6 +11,11 @@ const port = process.env.PORT || 8080
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
+app.use(function (req, res, next) {
+  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:8081');
+  next()
+})
+
 // MongoDB
 const MONGO_URI = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0-nbrmo.mongodb.net/test?retryWrites=true&w=majority`
 

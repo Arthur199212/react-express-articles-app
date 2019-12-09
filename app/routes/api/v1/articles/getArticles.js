@@ -18,8 +18,8 @@ router.get('/', async (req, res) => {
 
     const data = {
       count: articlesDB.length,
-      page,
-      limit: String(validLimit),
+      page: Number(page),
+      limit: validLimit,
       articles: articles[page - 1]
     }
 
