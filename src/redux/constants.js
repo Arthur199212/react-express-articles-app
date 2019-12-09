@@ -1,1 +1,6 @@
 export const ADD_ARTICLES = 'ADD_ARTICLES'
+export const SHOW_LOADING = 'SHOW_LOADING'
+export const HIDE_LOADING = 'HIDE_LOADING'
+export const SET_PAGE = 'SET_PAGE'
+export const RESET_PAGE = 'RESET_PAGE'
+export const SET_LIMIT = 'SET_LIMIT'

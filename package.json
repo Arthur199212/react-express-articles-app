@@ -5,7 +5,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "concurrently \"webpack-dev-server --open --port 4000 --compress --mode development\" \"nodemon server.js\"",
+    "start": "concurrently \"webpack-dev-server --open --port 8081 --compress --mode development\" \"nodemon server.js\"",
     "server": "nodemon server.js",
     "client": "webpack-dev-server --open --port 8081 --compress --mode development",
     "dev": "webpack --mode development --progress",
