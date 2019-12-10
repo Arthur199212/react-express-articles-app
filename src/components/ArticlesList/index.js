@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom';
-import { Paper, TablePagination, Button, Table, TableBody,
-TableCell, TableHead, TableRow, Fab, LinearProgress } from '@material-ui/core'
+import { Paper, TablePagination, Button, Table, TableBody, TableCell, TableHead,
+  TableRow, Fab, LinearProgress } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
-
 import { fetchArticles, setPage, setLimit, resetPage } from '../../redux/actions'
-
 import ArticleDialog from '../ArticleDialog'
+import styles from './styles'
 
 const ArticlesList = () => {
   const articles = useSelector(({ articles }) => articles)
@@ -29,9 +28,9 @@ const ArticlesList = () => {
   }
 
   return (
-    <Paper style={{ marginBottom: '1rem', overflowX: 'auto', width: '100%' }}>
+    <Paper style={styles.paper}>
       <div>
-      <Table style={{ minWidth: 650 }}>
+      <Table style={styles.table}>
         <TableHead>
           <TableRow>
             <TableCell>Title</TableCell>
@@ -55,7 +54,7 @@ const ArticlesList = () => {
                   {`${article.body.slice(0, 70)} ...`}
                 </TableCell>
                 <TableCell>{article.id}</TableCell>
-                <TableCell align='center' style={{ display: 'flex', justifyContent: 'center' }} >
+                <TableCell align='center' style={styles.actions} >
                   <Button>Edit</Button>
                   <ArticleDialog />
                 </TableCell>
