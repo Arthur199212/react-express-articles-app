@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchArticles, setPage, setLimit, resetPage } from '../../redux/actions'
 import { Paper, TablePagination, Button, Table, TableBody, TableCell, TableHead,
   TableRow, Fab, LinearProgress, Typography } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
-import { fetchArticles, setPage, setLimit, resetPage } from '../../redux/actions'
+
 import ArticleDialog from '../ArticleDialog'
 import styles from './styles'
 
@@ -57,14 +58,14 @@ const ArticlesList = () => {
               <TableRow key={id}>
                 <TableCell>{title}</TableCell>
                 <TableCell>
-                  {`${body.slice(0, 70)} ...`}
+                  {body.length > 70 ? `${body.slice(0, 70)} ...` : body}
                 </TableCell>
                 <TableCell>{id}</TableCell>
                 <TableCell align='center' style={styles.actions} >
                   <Link to={`/articles/${id}/edit`}>
                     <Button>Edit</Button>
                   </Link>
-                  <ArticleDialog />
+                  <ArticleDialog articleId={id} />
                 </TableCell>
               </TableRow>
             )))}

@@ -1,25 +1,30 @@
-import React, { useEffect } from 'react'
-import Button from '@material-ui/core/Button'
-import TextField from '@material-ui/core/TextField'
-import Dialog from '@material-ui/core/Dialog'
-import DialogActions from '@material-ui/core/DialogActions'
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogContentText from '@material-ui/core/DialogContentText'
-import DialogTitle from '@material-ui/core/DialogTitle'
+import React, { useEffect, useState } from 'react'
+import { Route } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchArticle, setInitialRequestInfo } from '../../redux/actions'
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography } from '@material-ui/core'
 
-const ArticleDialog = () => {
-  const [open, setOpen] = React.useState(false)
+const ArticleDialog = ({ articleId }) => {
+  const [open, setOpen] = useState(false)
+  const [selectedArticleID, setSelectedArticleID] = useState('')
+
+  const { data: { title, body, created_at = '', updated_at= '' } } = useSelector(({ article }) => article)
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    // TODO fetch data
-  })
+    if (articleId === selectedArticleID) dispatch(fetchArticle(articleId))
+  }, [selectedArticleID])
 
   const handleClickOpen = () => {
     setOpen(true)
+    setSelectedArticleID(articleId)
   }
 
   const handleClose = () => {
     setOpen(false)
+    setSelectedArticleID('')
+    dispatch(setInitialRequestInfo())
   }
 
   return (
@@ -27,31 +32,27 @@ const ArticleDialog = () => {
       <Button color='primary' onClick={handleClickOpen}>
         View
       </Button>
-      <Dialog open={open} onClose={handleClose} aria-labelledby='form-dialog-title'>
-        <DialogTitle id='form-dialog-title'>Subscribe</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            To subscribe to this website, please enter your email address here. We will send updates
-            occasionally.
-          </DialogContentText>
-          <TextField
-            autoFocus
-            margin='dense'
-            id='name'
-            label='Email Address'
-            type='email'
-            fullWidth
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color='primary'>
-            Cancel
-          </Button>
-          <Button onClick={handleClose} color='primary'>
-            Subscribe
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <Route exact path='/articles'>
+        <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>{title}</DialogTitle>
+          <DialogContent>
+            <Typography variant='subtitle1'>
+              {body}
+            </Typography>
+          </DialogContent>
+          <DialogActions style={{display: 'flex', justifyContent: 'space-around', alignItems: 'baseline'}}>
+            <Typography style={{marginTop: '1rem'}} variant='body2'>
+              {`Created: ${created_at.slice(11, 16)} ${created_at.slice(0, 10)}`}
+            </Typography>
+            <Typography style={{marginTop: '1rem'}} variant='body2'>
+              {`Updated: ${updated_at.slice(11, 16)} ${updated_at.slice(0, 10)}`}
+            </Typography>
+            <Button onClick={handleClose} color='primary'>
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Route>
     </div>
   )
 }

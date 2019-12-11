@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { TextField, Typography, Button, Paper, CircularProgress } from '@material-ui/core'
 import { postArticle, putArticle, setInitialRequestInfo } from '../../redux/actions'
+import { TextField, Typography, Button, Paper, CircularProgress } from '@material-ui/core'
+
 import styles from './styles'
 
 const ArticleForm = ({ edit, defaultValue: { title: defaultTitle, body: defaultBody } = {title: '', body: ''}, articleId }) => {
