@@ -1,6 +1,9 @@
 import { ADD_ARTICLES, SHOW_LOADING, HIDE_LOADING, SET_PAGE,
   RESET_PAGE, SET_LIMIT, SENDING_REQUEST, GET_REQUEST,
-  FAILED_REQUEST, SET_INITIAL_REEQUEST_INFO } from './constants'
+  FAILED_REQUEST, SET_INITIAL_REEQUEST_INFO, ADD_ARTICLE,
+  SHOW_ARTICLE_LOADING, HIDE_ARTICLE_LOADING } from './constants'
+
+const URL = 'http://localhost:8080/v1/articles'
 
 const addArticles = payload => ({
   type: ADD_ARTICLES,
@@ -50,7 +53,7 @@ export const fetchArticles = () => (dispatch, getState) => {
 
   dispatch(showLoading())
 
-  fetch(`http://localhost:8080/v1/articles?page=${page}&limit=${limit}`)
+  fetch(`${URL}?page=${page}&limit=${limit}`)
   .then(res => res.json())
   .then(data => {
     dispatch(addArticles(data))
@@ -65,12 +68,65 @@ export const fetchArticles = () => (dispatch, getState) => {
 export const postArticle = payload => dispatch => {
   dispatch(sendingRequert())
 
-  fetch('http://localhost:8080/v1/articles', {
+  fetch(URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(payload)
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.errors) {
+      dispatch(failedRequest())
+    } else {
+      dispatch(getRequest())
+      dispatch(fetchArticles())
+    }
+  })
+  .catch(err => {
+    console.error(err)
+    dispatch(failedRequest())
+  })
+}
+
+const addArticle = payload => ({
+  type: ADD_ARTICLE,
+  payload
+})
+
+const showArticleLoading = () => ({
+  type: SHOW_ARTICLE_LOADING
+})
+
+const hideArticleLoading = () => ({
+  type: HIDE_ARTICLE_LOADING
+})
+
+export const fetchArticle = payload => dispatch => {
+  dispatch(showArticleLoading())
+
+  fetch(`${URL}/${payload}`)
+  .then(res => res.json())
+  .then(data => {
+    dispatch(addArticle(data))
+    dispatch(hideArticleLoading())
+  })
+  .catch(err => {
+    console.error(err)
+    dispatch(hideArticleLoading())
+  })
+}
+
+export const putArticle = ({ articleId, articleData }) => dispatch => {
+  dispatch(sendingRequert())
+
+  fetch(`${URL}/${articleId}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(articleData)
   })
   .then(res => res.json())
   .then(data => {

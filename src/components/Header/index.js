@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import { AppBar, Toolbar, Typography } from '@material-ui/core'
 
 const Header = () => {
@@ -16,7 +16,7 @@ const Header = () => {
         </Toolbar>
       </AppBar>
     </div>
-  );
+  )
 }
 
 export default Header

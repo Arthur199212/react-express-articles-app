@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import { Paper, TablePagination, Button, Table, TableBody, TableCell, TableHead,
-  TableRow, Fab, LinearProgress } from '@material-ui/core'
+  TableRow, Fab, LinearProgress, Typography } from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 import { fetchArticles, setPage, setLimit, resetPage } from '../../redux/actions'
 import ArticleDialog from '../ArticleDialog'
@@ -29,6 +29,12 @@ const ArticlesList = () => {
 
   return (
     <Paper style={styles.paper}>
+      <Typography
+        variant='h4'
+        gutterBottom
+      >
+        Articles
+      </Typography>
       <div>
       <Table style={styles.table}>
         <TableHead>
@@ -47,15 +53,17 @@ const ArticlesList = () => {
         </TableHead>
         <TableBody>
           {!articles.loading && (
-            articles.data.articles.map(article => (
-              <TableRow key={article.id}>
-                <TableCell>{article.title}</TableCell>
+            articles.data.articles.map(({ id, title, body }) => (
+              <TableRow key={id}>
+                <TableCell>{title}</TableCell>
                 <TableCell>
-                  {`${article.body.slice(0, 70)} ...`}
+                  {`${body.slice(0, 70)} ...`}
                 </TableCell>
-                <TableCell>{article.id}</TableCell>
+                <TableCell>{id}</TableCell>
                 <TableCell align='center' style={styles.actions} >
-                  <Button>Edit</Button>
+                  <Link to={`/articles/${id}/edit`}>
+                    <Button>Edit</Button>
+                  </Link>
                   <ArticleDialog />
                 </TableCell>
               </TableRow>
