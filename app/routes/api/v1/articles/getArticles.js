@@ -16,11 +16,15 @@ router.get('/', async (req, res) => {
     
     const articles = splitByChunks(transformedArticles, validLimit)
 
+    const validPage = Math.ceil(articlesDB.length / validLimit) <= Number(page)
+    ? Math.ceil(articlesDB.length / validLimit)
+    : Number(page) >= 0 ? Number(page) : 0
+
     const data = {
       count: articlesDB.length,
-      page: Number(page),
+      page: validPage,
       limit: validLimit,
-      articles: articles[page - 1]
+      articles: articles[validPage - 1]
     }
 
     res.json(data)

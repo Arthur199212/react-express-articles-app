@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchArticles, setPage, setLimit, resetPage } from '../../redux/actions'
 import { Paper, TablePagination, Button, Table, TableBody, TableCell, TableHead,
@@ -7,20 +7,27 @@ import { Paper, TablePagination, Button, Table, TableBody, TableCell, TableHead,
 import AddIcon from '@material-ui/icons/Add'
 
 import ArticleDialog from '../ArticleDialog'
+import { useQuery } from '../../hooks'
 import styles from './styles'
 
 const ArticlesList = () => {
   const articles = useSelector(({ articles }) => articles)
   const { page, limit } = useSelector(({ searchData }) => searchData)
 
+  const query = useQuery()
+  const history = useHistory()
   const dispatch = useDispatch()
 
   useEffect(() => {
+    const pageQuery = Number(query.get('page')) >= 0 ? Number(query.get('page')) : 0
+    if (pageQuery && page !== pageQuery) dispatch(setPage(pageQuery))
+
     dispatch(fetchArticles())
   }, [page, limit])
 
   const handleChangePage = (event, newPage) => {
     dispatch(setPage(newPage + 1))
+    history.push(`/articles?page=${newPage + 1}`)
   }
 
   const handleChangeRowsPerPage = event => {
@@ -78,7 +85,7 @@ const ArticlesList = () => {
           component='div'
           count={articles.data.count}
           rowsPerPage={limit}
-          page={page - 1}
+          page={articles.data.page - 1}
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />

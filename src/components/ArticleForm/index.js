@@ -13,9 +13,7 @@ const ArticleForm = ({ edit, defaultValue: { title: defaultTitle, body: defaultB
   const [bodyError, setBodyError] = useState(false)
 
   const { loading, error, success } = useSelector(({ createFormRequestInfo }) => createFormRequestInfo)
-
   const dispatch = useDispatch()
-
   const history = useHistory()
 
   useEffect(() => {

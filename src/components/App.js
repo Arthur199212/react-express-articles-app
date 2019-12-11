@@ -22,11 +22,11 @@ const App = () => {
         <Route exact path='/articles'>
           <ArticlesList />
         </Route>
-        <Route path='/articles/:articleId/edit'>
-          <EditArticlePage />
-        </Route>
         <Route exact path='/articles/create'>
           <CreatePage />
+        </Route>
+        <Route path='/articles/:articleId/edit'>
+          <EditArticlePage />
         </Route>
       </Switch>
       </Container>

@@ -9,7 +9,6 @@ const ArticleDialog = ({ articleId }) => {
   const [selectedArticleID, setSelectedArticleID] = useState('')
 
   const { data: { title, body, created_at = '', updated_at= '' } } = useSelector(({ article }) => article)
-
   const dispatch = useDispatch()
 
   useEffect(() => {
