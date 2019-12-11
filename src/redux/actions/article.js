@@ -1,36 +1,8 @@
-import { ADD_ARTICLES, SHOW_LOADING, HIDE_LOADING, SET_PAGE,
-  RESET_PAGE, SET_LIMIT, SENDING_REQUEST, GET_REQUEST,
+import { SENDING_REQUEST, GET_REQUEST,
   FAILED_REQUEST, SET_INITIAL_REEQUEST_INFO, ADD_ARTICLE,
-  SHOW_ARTICLE_LOADING, HIDE_ARTICLE_LOADING } from './constants'
+  SHOW_ARTICLE_LOADING, HIDE_ARTICLE_LOADING } from '../constants'
 
-const URL = 'http://localhost:8080/v1/articles'
-
-const addArticles = payload => ({
-  type: ADD_ARTICLES,
-  payload
-})
-
-const showLoading = () => ({
-  type: SHOW_LOADING
-})
-
-const hideLoading = () => ({
-  type: HIDE_LOADING
-})
-
-export const setPage = payload => ({
-  type: SET_PAGE,
-  payload
-})
-
-export const resetPage = () => ({
-  type: RESET_PAGE
-})
-
-export const setLimit = payload => ({
-  type: SET_LIMIT,
-  payload
-})
+import { URL } from '../../api'
 
 const sendingRequert = () => ({
   type: SENDING_REQUEST
@@ -48,23 +20,6 @@ export const setInitialRequestInfo = () => ({
   type: SET_INITIAL_REEQUEST_INFO
 })
 
-export const fetchArticles = () => (dispatch, getState) => {
-  const { searchData: { page, limit } } = getState()
-
-  dispatch(showLoading())
-
-  fetch(`${URL}?page=${page}&limit=${limit}`)
-  .then(res => res.json())
-  .then(data => {
-    dispatch(addArticles(data))
-    dispatch(hideLoading())
-  })
-  .catch(err => {
-    console.error(err)
-    dispatch(hideLoading())
-  })
-}
-
 export const postArticle = payload => dispatch => {
   dispatch(sendingRequert())
 
@@ -81,7 +36,6 @@ export const postArticle = payload => dispatch => {
       dispatch(failedRequest())
     } else {
       dispatch(getRequest())
-      dispatch(fetchArticles())
     }
   })
   .catch(err => {
@@ -134,7 +88,6 @@ export const putArticle = ({ articleId, articleData }) => dispatch => {
       dispatch(failedRequest())
     } else {
       dispatch(getRequest())
-      dispatch(fetchArticles())
     }
   })
   .catch(err => {
