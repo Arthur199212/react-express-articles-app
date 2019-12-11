@@ -6,13 +6,17 @@ import { TextField, Typography, Button, Paper, CircularProgress } from '@materia
 
 import styles from './styles'
 
-const ArticleForm = ({ edit, defaultValue: { title: defaultTitle, body: defaultBody } = {title: '', body: ''}, articleId }) => {
+const ArticleForm = ({
+  edit,
+  defaultValue: { title: defaultTitle, body: defaultBody } = {title: '', body: ''},
+  articleId
+}) => {
   const [title, setTitle] = useState('')
   const [body, setBody] = useState('')
   const [titleError, setTitleError] = useState(false)
   const [bodyError, setBodyError] = useState(false)
 
-  const { loading, error, success } = useSelector(({ createFormRequestInfo }) => createFormRequestInfo)
+  const { loading, error, success } = useSelector(({ formRequestInfo }) => formRequestInfo)
   const dispatch = useDispatch()
   const history = useHistory()
 
@@ -25,8 +29,8 @@ const ArticleForm = ({ edit, defaultValue: { title: defaultTitle, body: defaultB
 
   const handleBodyChange = ({ target: { value } }) => setBody(value)
 
-  const handleSubmit = e => {
-    e.preventDefault()
+  const handleSubmit = event => {
+    event.preventDefault()
 
     setTitleError(!title)
     setBodyError(!body)
@@ -82,7 +86,7 @@ const ArticleForm = ({ edit, defaultValue: { title: defaultTitle, body: defaultB
               style={styles.formContainer}
               noValidate
               autoComplete='off'
-              onSubmit={e => handleSubmit(e)}
+              onSubmit={event => handleSubmit(event)}
             >
               <TextField
                 style={styles.marginBottom}

@@ -2,11 +2,8 @@ import React from 'react'
 
 import ArticleForm from '../ArticleForm'
 
-const CreateArticlePage = () => {
-
-  return (
+const CreateArticlePage = () => (
     <ArticleForm />
-  )
-}
+)
 
 export default CreateArticlePage

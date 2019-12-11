@@ -1,5 +1,12 @@
-import { ADD_ARTICLES, SHOW_LOADING, HIDE_LOADING, SET_PAGE,
-  RESET_PAGE, SET_LIMIT, SET_INITIAL_REEQUEST_INFO } from '../constants'
+import {
+  ADD_ARTICLES,
+  SHOW_LOADING,
+  HIDE_LOADING,
+  SET_PAGE,
+  RESET_PAGE,
+  SET_LIMIT,
+  SET_INITIAL_REEQUEST_INFO
+} from '../constants'
 
 import { URL } from '../../api'
 

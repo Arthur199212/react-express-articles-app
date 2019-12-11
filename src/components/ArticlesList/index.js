@@ -2,8 +2,20 @@ import React, { useEffect } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchArticles, setPage, setLimit, resetPage } from '../../redux/actions'
-import { Paper, TablePagination, Button, Table, TableBody, TableCell, TableHead,
-  TableRow, Fab, LinearProgress, Typography } from '@material-ui/core'
+import {
+  Paper,
+  TablePagination,
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableRow,
+  Fab,
+  LinearProgress,
+  Typography,
+  useMediaQuery
+} from '@material-ui/core'
 import AddIcon from '@material-ui/icons/Add'
 
 import ArticleDialog from '../ArticleDialog'
@@ -17,6 +29,7 @@ const ArticlesList = () => {
   const query = useQuery()
   const history = useHistory()
   const dispatch = useDispatch()
+  const matches = useMediaQuery('(min-width:1100px)')
 
   useEffect(() => {
     const pageQuery = Number(query.get('page')) >= 0 ? Number(query.get('page')) : 0
@@ -51,11 +64,11 @@ const ArticlesList = () => {
             <TableCell>Body</TableCell>
             <TableCell>Id</TableCell>
             <TableCell align='center'>
-            <Link to='/articles/create'>
-              <Fab size='small' color='primary' aria-label='create article'>
-                <AddIcon />
-              </Fab>
-            </Link>
+              <Link to='/articles/create'>
+                <Fab size='small' color='primary' aria-label='create article'>
+                  <AddIcon />
+                </Fab>
+              </Link>
             </TableCell>
           </TableRow>
         </TableHead>
@@ -65,7 +78,8 @@ const ArticlesList = () => {
               <TableRow key={id}>
                 <TableCell>{title}</TableCell>
                 <TableCell>
-                  {body.length > 70 ? `${body.slice(0, 70)} ...` : body}
+                  {matches && (body.length > 65 ? `${body.slice(0, 65)} ...` : body)}
+                  {!matches && (body.length > 15 ? `${body.slice(0, 15)} ...` : body)}
                 </TableCell>
                 <TableCell>{id}</TableCell>
                 <TableCell align='center' style={styles.actions} >
@@ -75,8 +89,8 @@ const ArticlesList = () => {
                   <ArticleDialog articleId={id} />
                 </TableCell>
               </TableRow>
-            )))}
-          </TableBody>
+          )))}
+        </TableBody>
       </Table>
       {articles.loading && <LinearProgress />}
       </div>
