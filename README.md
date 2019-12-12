@@ -46,6 +46,7 @@ After this app is ready to be deployed.
 
 Articles data is stored on MongoDB
 
+
 #### POST v1/articles - creates an article
 
 ##### Request body parameters
@@ -167,7 +168,6 @@ For example, we make a request **GET** `/v1/articles?page=1&limit=2`, in respons
 - `articles` - an array of articles
 
 
-
 #### GET v1/articles/:id - gets an article by id
 
 ##### Options
@@ -193,6 +193,24 @@ For example, if we make a request **GET** `v1/articles/5dea166051ec3b28b0766c84`
     "created_at": "2019-12-06T08:50:40.975+00:00"
 }
 ```
+
+If there is no article with the identifier `:id`, server returns the HTTP Status Code equal to 404 and the response body:
+
+```json
+{
+    "errors": [{
+        "field": "id",
+        "error": "Not Found"
+    }]
+}
+```
+
+
+#### DELETE v1/articles/:id - deletes an article by id
+
+##### Options
+
+- `id` - unique identifier of the article
 
 If there is no article with the identifier `:id`, server returns the HTTP Status Code equal to 404 and the response body:
 
