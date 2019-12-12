@@ -1,3 +1,5 @@
+<!-- markdownlint-disable MD024 -->
+
 # Articles App
 
 ### Frontend part
@@ -63,8 +65,8 @@ For example, we make a request:
 
 ```json
 {
-    "title": "Awesome Article # 1",
-    "body": "Description ..."
+    "title": "Awesome Article # 1",
+    "body": "Description ..."
 }
 ```
 
@@ -72,11 +74,11 @@ in response to the request we get
 
 ```json
 {
-    "id": "5dea166051ec3b28b0766c84",
-    "title": "Awesome Article # 1",
-    "body": "Description ...",
-    "updated_at": "2019-12-06T08:50:40.975+00:00",
-    "created_at": "2019-12-06T08:50:40.975+00:00"
+    "id": "5dea166051ec3b28b0766c84",
+    "title": "Awesome Article # 1",
+    "body": "Description ...",
+    "updated_at": "2019-12-06T08:50:40.975+00:00",
+    "created_at": "2019-12-06T08:50:40.975+00:00"
 }
 ```
 
@@ -109,8 +111,8 @@ For example, we make a `PUT` request:
 
 ```json
 {
-    "title": "Updated Awesome Article # 1",
-    "body": "Updated Body ..."
+    "title": "Updated Awesome Article # 1",
+    "body": "Updated Body ..."
 }
 ```
 
@@ -118,11 +120,11 @@ in response we get
 
 ```json
 {
-    "id": "5b15395fb5ff829e402cd0e4",
-    "title": "Updated Awesome Article # 1",
-    "body": "Updated Description ...",
-    "updated_at": "2019-12-06T09:23:12.975+00:00",
-    "created_at": "2019-12-06T08:50:40.975+00:00"
+    "id": "5b15395fb5ff829e402cd0e4",
+    "title": "Updated Awesome Article # 1",
+    "body": "Updated Description ...",
+    "updated_at": "2019-12-06T09:23:12.975+00:00",
+    "created_at": "2019-12-06T08:50:40.975+00:00"
 }
 ```
 
@@ -138,22 +140,22 @@ For example, we make a request **GET** `/v1/articles?page=1&limit=2`, in respons
 
 ```json
 {
-    "count": 25,
-    "page": 1,
-    "limit": 2,
-    "articles": [{
-        "id": "5dea166051ec3b28b0766c84",
-        "title": "Awesome Article # 1",
-        "body": "Description ...",
-        "updated_at": "2019-12-06T08:50:40.975+00:00",
-        "created_at": "2019-12-06T08:50:40.975+00:00"
-    }, {
-        "id": "5b15395fb5ff829e402cd0e4",
-        "title": "Updated Awesome Article # 1",
-        "body": "Updated Description ...",
-        "updated_at": "2019-12-06T09:23:12.975+00:00",
-        "created_at": "2019-12-06T08:50:40.975+00:00"
-    }]
+    "count": 25,
+    "page": 1,
+    "limit": 2,
+    "articles": [{
+        "id": "5dea166051ec3b28b0766c84",
+        "title": "Awesome Article # 1",
+        "body": "Description ...",
+        "updated_at": "2019-12-06T08:50:40.975+00:00",
+        "created_at": "2019-12-06T08:50:40.975+00:00"
+    }, {
+        "id": "5b15395fb5ff829e402cd0e4",
+        "title": "Updated Awesome Article # 1",
+        "body": "Updated Description ...",
+        "updated_at": "2019-12-06T09:23:12.975+00:00",
+        "created_at": "2019-12-06T08:50:40.975+00:00"
+    }]
 }
 ```
 
@@ -184,11 +186,11 @@ For example, if we make a request **GET** `v1/articles/5dea166051ec3b28b0766c84`
 
 ```json
 {
-    "id": "5dea166051ec3b28b0766c84",
-    "title": "Awesome Article # 1",
-    "body": "Description ...",
-    "updated_at": "2019-12-06T08:50:40.975+00:00",
-    "created_at": "2019-12-06T08:50:40.975+00:00"
+    "id": "5dea166051ec3b28b0766c84",
+    "title": "Awesome Article # 1",
+    "body": "Description ...",
+    "updated_at": "2019-12-06T08:50:40.975+00:00",
+    "created_at": "2019-12-06T08:50:40.975+00:00"
 }
 ```
 
@@ -196,10 +198,10 @@ If there is no article with the identifier `:id`, server returns the HTTP Status
 
 ```json
 {
-    "errors": [{
-        "field": "id",
-        "error": "Not Found"
-    }]
+    "errors": [{
+        "field": "id",
+        "error": "Not Found"
+    }]
 }
 ```
 
