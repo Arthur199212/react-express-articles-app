@@ -16,14 +16,14 @@ router.post('/', async (req, res) => {
     res.json(savedPost)
   } catch(err) {
     if (err.name === 'ValidationError') {
-      res.status(400).json({
+      res.status(422).json({
         errors: [{
           field: err.errors.body.path,
           error: `${err.errors.body.path} is required`
         }]
       })
     } else {
-      res.status(400).json({
+      res.status(422).json({
         message: err
       })
     }
