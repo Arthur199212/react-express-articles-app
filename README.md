@@ -2,11 +2,13 @@
 
 # Articles App
 
-### Frontend part
-Used technologies: JS (ES6+), React (Hooks), Redux (Hooks), redux-thunk, Material-UI, REST API.
+## Technologies
 
-### Backend part
-Used technologies: Node.js, Express.js, REST API.
+### Front-End
+JS (ES6+), React (Hooks), Redux (Hooks), redux-thunk, Material-UI, REST API.
+
+### Back-End
+Node.js, Express.js, REST API.
 
 
 ## Available Scripts
